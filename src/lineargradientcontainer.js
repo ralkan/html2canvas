@@ -62,6 +62,12 @@ function LinearGradientContainer(imageData) {
 
     this.colorStops = imageData.args.slice(hasDirection ? 1 : 0).map(function(colorStop) {
         var colorStopMatch = colorStop.match(GradientContainer.REGEXP_COLORSTOP);
+        if (!colorStopMatch) {
+          return {
+            color: new Color("0"),
+            stop: null
+          };
+        }
         var value = +colorStopMatch[2];
         var unit = value === 0 ? "%" : colorStopMatch[3]; // treat "0" as "0%"
         return {
